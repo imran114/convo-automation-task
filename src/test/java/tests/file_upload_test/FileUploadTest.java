@@ -21,7 +21,7 @@ public class FileUploadTest extends PageObjects {
     public void uploadFileTest() {
         extentReport.logChildTestNameAndDescription(useCaseName, "Upload a file");
         extentReport.testInfo("Verify if file is uploaded");
-        actualResult = fileUploadPage.uploadFileWithRobot();
+        actualResult = fileUploadPage.uploadFile();
         extentReport.logStepResult(actualResult);
         TestValidator.validateTest(actualResult);
     }
