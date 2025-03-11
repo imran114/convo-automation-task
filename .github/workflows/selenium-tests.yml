@@ -49,8 +49,9 @@ jobs:
 
           if [[ -z "$CHROMEDRIVER_VERSION" || "$CHROMEDRIVER_VERSION" == "null" ]]; then
               echo "Warning: No exact ChromeDriver version found for Chrome $CHROME_VERSION."
-              echo "Fetching latest ChromeDriver version instead..."
-              CHROMEDRIVER_VERSION=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build-with-downloads.json | jq -r '.["134"].downloads.chromedriver[0].version')
+              echo "Fetching the latest available ChromeDriver version..."
+
+              CHROMEDRIVER_VERSION=$(echo "$RESPONSE" | jq -r '. | to_entries | map(select(.value.downloads.chromedriver != null)) | last | .value.downloads.chromedriver[0].version')
 
               if [[ -z "$CHROMEDRIVER_VERSION" || "$CHROMEDRIVER_VERSION" == "null" ]]; then
                   echo "Error: Could not determine a valid ChromeDriver version."
@@ -61,7 +62,9 @@ jobs:
           echo "Using ChromeDriver version: $CHROMEDRIVER_VERSION"
           
           echo "Downloading ChromeDriver..."
-          wget -q "https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
+          CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
+          
+          wget -q "$CHROMEDRIVER_URL" -O chromedriver-linux64.zip
 
           if [[ ! -f "chromedriver-linux64.zip" ]]; then
               echo "Error: ChromeDriver download failed."
