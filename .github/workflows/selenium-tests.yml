@@ -26,13 +26,12 @@ jobs:
 
       - name: Set up Chrome and ChromeDriver
         run: |
-          sudo apt update
-          
-          # Check if Chrome is installed, if not install it
-          if ! command -v google-chrome &> /dev/null; then
-            sudo apt install -y google-chrome-stable
-          fi
-          
+          # Update package list but avoid failure if updates are available
+          sudo apt update || true
+
+          # Ensure required packages are installed without breaking
+          sudo apt install -y --allow-downgrades --allow-change-held-packages wget unzip google-chrome-stable || true
+
           # Get installed Chrome version
           CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
 
@@ -49,6 +48,7 @@ jobs:
           # Verify installation
           google-chrome --version
           chromedriver --version
+
           
       - name: Display System Information
         run: |
