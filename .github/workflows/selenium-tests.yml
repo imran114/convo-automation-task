@@ -26,49 +26,59 @@ jobs:
 
       - name: Set up Chrome and ChromeDriver
         run: |
-          # Update package list but ignore exit code 8 if updates are available
+          set -e  # Exit immediately if any command fails
+
+          echo "Updating system packages..."
           sudo apt update || true
-          
-          # Upgrade only necessary packages to avoid dependency issues
           sudo apt upgrade -y || true
-          
-          # Ensure Chrome is installed and up-to-date
-          if ! command -v google-chrome &> /dev/null; then
-            sudo apt install -y google-chrome-stable || true
+          sudo apt install -y google-chrome-stable jq unzip wget || true
+
+          echo "Checking installed Chrome version..."
+          CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f1)
+
+          echo "Fetching ChromeDriver version for Chrome $CHROME_VERSION..."
+          RESPONSE=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build-with-downloads.json")
+          if [[ -z "$RESPONSE" || "$RESPONSE" == "null" ]]; then
+              echo "Error: Failed to fetch ChromeDriver version."
+              exit 1
           fi
 
-          # Get installed Chrome version
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
+          CHROMEDRIVER_VERSION=$(echo "$RESPONSE" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.[$CHROME_VERSION].downloads.chromedriver[0].version')
+          
+          if [[ -z "$CHROMEDRIVER_VERSION" || "$CHROMEDRIVER_VERSION" == "null" ]]; then
+              echo "Error: ChromeDriver version not found."
+              exit 1
+          fi
 
-          # Get the latest ChromeDriver version compatible with the installed Chrome
-          CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build-with-downloads.json" \
-            | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.[$CHROME_VERSION].downloads.chromedriver[0].version')
-
-          # Download and install ChromeDriver
+          echo "Downloading ChromeDriver version $CHROMEDRIVER_VERSION..."
           wget -q "https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
           unzip -o chromedriver-linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
 
-          # Verify installations
-          google-chrome --version
+          echo "Installed versions:"
+          google-chrome-stable --version
           chromedriver --version
 
-          
       - name: Display System Information
         run: |
           echo "System Information:"
           uname -a
           java -version
           mvn -version
-          google-chrome --version
+          google-chrome-stable --version
           chromedriver --version
 
       - name: Install Maven Dependencies
         run: mvn clean install -DskipTests=true
 
       - name: Run Selenium TestNG Tests
-        run: mvn clean test -Dsurefire.suiteXmlFiles=./testng.xml -Dsurefire.rerunFailingTestsCount=2 --fail-at-end
+        run: |
+          echo "Resolving dependencies..."
+          mvn dependency:resolve
+          
+          echo "Running Selenium TestNG tests..."
+          mvn clean test -Dsurefire.suiteXmlFiles=./testng.xml -Dsurefire.rerunFailingTestsCount=2 --fail-at-end
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
