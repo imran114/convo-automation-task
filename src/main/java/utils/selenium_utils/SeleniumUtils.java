@@ -58,7 +58,7 @@ public class SeleniumUtils {
         }
     }
 
-    public boolean isDisplayedWithOutWait(By locator) {
+    public boolean isDisplayed(By locator) {
         try {
             return driver.findElement(locator).isDisplayed();
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class SeleniumUtils {
         }
     }
 
-    public boolean isDisplayedWithWait(By locator, int seconds) {
+    public boolean isDisplayed(By locator, int seconds) {
         try {
             waitForVisibility(locator, seconds);
             return driver.findElement(locator).isDisplayed();

@@ -1,5 +1,6 @@
 package utils.email;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -17,9 +18,14 @@ public class EmailBody {
             throw new RuntimeException(e);
         }
     }
-    public void clearEmailBody() throws  IOException{
+    public void clearEmailBody(){
         File file = new File(filePath);
-        PrintWriter writer = new PrintWriter(file);
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         writer.print("");
         writer.close();
     }

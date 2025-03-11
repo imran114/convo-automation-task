@@ -172,10 +172,10 @@ public class ScrollingMethods extends SeleniumUtils {
         try {
             waitForVisibility(scrollAreaLocator);
             int attempts = 0;
-            boolean isVisible = isDisplayedWithWait(targetElement, 2);
+            boolean isVisible = isDisplayed(targetElement, 2);
             while (!isVisible && attempts < maxScrollAttempts) {
                 swipe(returnWebElement(scrollAreaLocator), direction);
-                isVisible = isDisplayedWithWait(targetElement, 3);
+                isVisible = isDisplayed(targetElement, 3);
                 attempts++;
             }
 

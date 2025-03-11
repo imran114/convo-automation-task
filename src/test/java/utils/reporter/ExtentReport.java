@@ -2,54 +2,99 @@ package utils.reporter;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.JsonFormatter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.google.common.io.Files;
+import com.aventstack.extentreports.reporter.configuration.ViewName;
+
+import java.nio.file.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.io.FileHandler;
 import org.testng.Assert;
+import utils.test_merge.MergeJsonReports;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExtentReport {
+    private WebDriver driver ;
     private static final Logger logger = LogManager.getLogger(ExtentReport.class);
-    WebDriver driver;
-    private ExtentReports extentReports;
-    private ExtentSparkReporter extentSparkReporter;
+    private final ExtentReports extentReports;
     private ExtentTest extentTest;
+    private ExtentSparkReporter extentSparkReporter;
+    private final String screenshotPath ;
+
+    // Test maps for hierarchy
     Map<String, ExtentTest> parentTestsMap = new HashMap<>();
     Map<String, ExtentTest> childTestsMap = new HashMap<>();
-    Map<String, ExtentTest> grandChildTestsMap = new HashMap<>();
-    private String screenshotPath = "src/main/resources/screenShots/screenShot.png";
 
 
-    public ExtentReport() {
-        extentReports = new ExtentReports();
+    public ExtentReport(WebDriver driver) {
+        this.driver = driver;
+        this.extentReports = new ExtentReports();
+        screenshotPath = System.getProperty("user.dir") +"/src/main/resources/screenShots/screenShot.png";
     }
 
-
-    public void createReport() {
-        extentSparkReporter = new ExtentSparkReporter("src/test/resources/reports/report.html");
-        extentSparkReporter.config().setDocumentTitle("[Project Name] Automation Report");
-        extentSparkReporter.config().setTheme(Theme.DARK);
-        extentReports.attachReporter(extentSparkReporter);
-    }
-
+    // Creates the report with configuration matching the original
     public void createTest(String testName, String testDescription) {
         if (!parentTestsMap.containsKey(testName)) {
             ExtentTest parentTest = extentReports.createTest(testName, testDescription)
-            .assignCategory(testName).assignDevice("Web Portal");
+                    .assignCategory(testName)
+                    .assignDevice(System.getProperty("os.name"));
             parentTestsMap.put(testName, parentTest);
             extentTest = parentTest;
         }
     }
+
+    public void createReport() {
+        String reportFilePath = System.getProperty("user.dir") + "/src/test/resources/reports/json_files";
+        File reportDir = new File(reportFilePath);
+
+        if (reportDir.exists() && reportDir.isDirectory()) {
+            System.out.println("yes, directory is created");
+        } else {
+            System.out.println("no, directory is not created");
+        }
+
+        // Use current timestamp for unique filenames
+        long timestamp = System.currentTimeMillis();
+        String jsonFileName = "extent_" + timestamp + ".json";
+        System.out.println("jsonFileName: "+jsonFileName);
+        String jsonPath = reportFilePath + "/" + jsonFileName;
+
+        JsonFormatter jsonFormatter = new JsonFormatter(jsonPath);
+        try {
+            extentReports.createDomainFromJsonArchive(jsonPath);
+        } catch (IOException e) {
+            logger.error("Error creating domain from JSON archive", e);
+            throw new RuntimeException(e);
+        }
+        extentReports.attachReporter(jsonFormatter);
+    }
+
+
+    public void logChildTestNameAndDescription(String parentTestName, String childTestName) {
+        if (parentTestsMap.containsKey(parentTestName)) {
+            ExtentTest childTest = parentTestsMap.get(parentTestName).createNode(childTestName).assignCategory(parentTestName);
+            childTestsMap.put(childTestName, childTest);
+            extentTest = childTest;
+        }
+    }
+
 
     public void testPass(String passInfo) {
         extentTest.pass(passInfo);
@@ -57,9 +102,10 @@ public class ExtentReport {
 
     public void testFail(String failInfo) {
         try {
-            extentTest.assignCategory(failInfo);
-            extentTest.fail(failInfo);
-            getFailedElementScreenShot();
+            captureScreenshot(screenshotPath);
+            String base64Image = convertImageToBase64(screenshotPath);
+            extentTest.fail(failInfo, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
+            if (isFilePresent(screenshotPath)) deleteScreenshot();
         } catch (Exception e) {
             logger.error("Error while adding screenshot for failed test", e);
         }
@@ -70,24 +116,7 @@ public class ExtentReport {
     }
 
     public void testInfo(String testInfo) {
-        if (extentTest == null) {
-            logger.error("extentTest is null");
-            throw new IllegalStateException("extentTest is null");
-        }
         extentTest.info(testInfo);
-    }
-    public void assertHandler(String statement) {
-        if (statement.contains("Skip")) {
-            testSkip(statement);
-        } else {
-            if (statement.contains("Pass")) {
-                Assert.assertTrue(statement.contains("Pass"));
-            } else if (statement.contains("Fail")) {
-                //Assert.assertTrue(true,false);
-                Assert.assertEquals("Pass","Fail");
-                // Assert.assertTrue(statement.contains("Pass"));
-            }
-        }
     }
 
     public void logStepResult(String stepResult) {
@@ -95,82 +124,107 @@ public class ExtentReport {
             testPass(stepResult);
         } else if (stepResult.contains("Fail")) {
             testFail(stepResult);
+        } else if (stepResult.contains("Skip")) {
+            testSkip(stepResult);
         } else {
             testInfo(stepResult);
         }
     }
 
-    public void flushReport() {
-        extentReports.flush();
-        String screenshotPath = "src/main/resources/screenShots/screenShot.png";
-        // Delete the screenshot file
+    public void captureScreenshot(String screenshotPath) {
+        try {
+            File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File destFile = new File(screenshotPath);
+            FileHandler.copy(srcFile, destFile);
+            System.out.println("Screenshot captured: " + screenshotPath);
+        } catch (IOException e) {
+            System.err.println("Error capturing screenshot: " + e.getMessage());
+        }
+    }
+    private void deleteScreenshot() {
         File screenshotFile = new File(screenshotPath);
-        if (screenshotFile.delete()) {
-            logger.info("Screenshot file deleted successfully.");
-        } else {
-            logger.error("Failed to delete the screenshot file.");
-        }
-    }
-
-    public void logChildTestNameAndDescription(String parentTestName, String childTestName) {
-        if (parentTestsMap.containsKey(parentTestName)) {
-            extentTest = parentTestsMap.get(parentTestName).createNode(childTestName).assignCategory(parentTestName);
-            childTestsMap.put(childTestName, extentTest);
-        }
-    }
-
-    public void logGrandChildTestNameAndDescription(String parentTestName, String childTestName, String grandChildName) {
-        if (parentTestsMap.containsKey(parentTestName) && childTestsMap.containsKey(childTestName)) {
-            ExtentTest parentTest = parentTestsMap.get(parentTestName);
-            ExtentTest childTest = childTestsMap.get(childTestName);
-            if (childTest == null) {
-                childTest = parentTest.createNode(childTestName).assignCategory(parentTestName);
-                childTestsMap.put(childTestName, childTest);
+        if (screenshotFile.exists()) {
+            if (!screenshotFile.delete()) {
+                logger.error("Failed to delete the screenshot file.");
             }
-            if (!grandChildTestsMap.containsKey(grandChildName)) {
-                extentTest = childTest.createNode(grandChildName).assignCategory(parentTestName);
-                grandChildTestsMap.put(grandChildName, extentTest);
-            }
-            if (isFilePresent(screenshotPath)) deleteScreenShot();
         }
     }
 
-    public void getFailedElementScreenShot() throws IOException {
-        String fileName = "screenShot.png";
-        String pathToSaveFile = "src/main/resources/screenShots/" + fileName;
+
+
+    public void mergeReports() {
+        // Generate date in YYMMDD format
+        String currentDate = new SimpleDateFormat("yyMMdd").format(new Date()).toLowerCase();
+
+        // Construct dynamic report name
+        String reportFileName = "convo_task-" + currentDate + "-report.html";
+        String reportFilePath = "src/test/resources/reports/" + reportFileName;
+
+        // Merge JSON reports
+        MergeJsonReports.mergeJson();
+
+        // Create ExtentSparkReporter with the new dynamic name
+        ExtentSparkReporter mergedSpark = new ExtentSparkReporter(reportFilePath);
+        extentReportConfig(mergedSpark);
+
+        // Initialize ExtentReports
+        ExtentReports extentMerged = new ExtentReports();
         try {
-            var getScreenShot = (TakesScreenshot) driver;
-            File screenShot = getScreenShot.getScreenshotAs(OutputType.FILE);
-            Files.move(screenShot, new File(pathToSaveFile));
-        } catch (Exception exception) {
-            throw exception;
+            extentMerged.createDomainFromJsonArchive("src/test/resources/reports/merged_report.json");
+        } catch (IOException e) {
+            throw new RuntimeException("Error while merging JSON reports: " + e.getMessage(), e);
+        }
+
+        // Attach the renamed report
+        extentMerged.attachReporter(mergedSpark);
+        extentMerged.flush();
+
+        System.out.println("Merged report generated: " + reportFilePath);
+    }
+
+    private void extentReportConfig(ExtentSparkReporter mergedSpark) {
+        String cssFilePath = "extentReport.css";
+        String jsFilePath = "reportConfigJs.js";
+        String cssContent;
+        String jsContent;
+        cssContent = createStringFromFileContent(cssFilePath);
+        jsContent = createStringFromFileContent(jsFilePath);
+        mergedSpark.config().setDocumentTitle("Convo Task Automation Report");
+        mergedSpark.config().setTheme(Theme.DARK);
+        mergedSpark.config().setCss(cssContent);
+        mergedSpark.config().setJs(jsContent);
+        mergedSpark.viewConfigurer().viewOrder().as(new ViewName[]{ViewName.DASHBOARD, ViewName.TEST, ViewName.CATEGORY, ViewName.DEVICE}).apply();
+    }
+
+    private String createStringFromFileContent(String filePath) {
+        try {
+            return new String(java.nio.file.Files.readAllBytes(Paths.get(filePath)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void deleteScreenShot() {
-        try {
-            screenshotPath = "src/main/resources/screenShots/screenShot.png";
-
-            // Delete the screenshot file
-            File screenshotFile = new File(screenshotPath);
-            if (screenshotFile.exists()) {
-                boolean deletionSuccessful = screenshotFile.delete();
-                if (deletionSuccessful) {
-                    System.out.println("Screenshot file deleted successfully.");
-                } else {
-                    System.out.println("Failed to delete the screenshot file.");
-                }
-            } else {
-                System.out.println("Screenshot file not found.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while deleting the screenshot file.");
+    private static String convertImageToBase64(String imagePath) {
+        File screenshotFile = new File(imagePath);
+        if (!screenshotFile.exists()) {
+            System.err.println("Screenshot file not found at: " + imagePath);
+            return "Screenshot file not found at: " + imagePath;
+        }
+        File imageFile = new File(imagePath);
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            byte[] imageData = fis.readAllBytes();
+            return Base64.getEncoder().encodeToString(imageData);
+        } catch ( IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     private boolean isFilePresent(String screenshotPath) {
         return new File(screenshotPath).exists();
     }
+
+    public void flushReport() {
+        extentReports.flush();
+        deleteScreenshot();
+    }
 }
- 

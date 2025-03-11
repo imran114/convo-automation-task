@@ -8,18 +8,22 @@ import java.util.Properties;
 // This class reads properties from configuration and email configuration files.
 public class PropertiesFileReader {
 
+    // test PropertiesFileReader
+
     private final Properties emailProperties;
     private final String emailFilePath = "src/test/resources/test_data_files/email_configuration.properties";
-
+    private final static String userDir = System.getProperty("user.dir");
 
     public PropertiesFileReader() {
         emailProperties = readProperties(emailFilePath);
     }
 
-
-    public String getEmail() {
-        return getProperty(emailProperties, "userEmail");
+    public static String returnFilePath(String path) {
+        return userDir + path;
     }
+
+
+
 
     public String getPort() {
         return getProperty(emailProperties, "port");
@@ -45,12 +49,13 @@ public class PropertiesFileReader {
     }
 
 
-    private String getProperty(Properties properties, String propertyName) {
+    private static String getProperty(Properties properties, String propertyName) {
         if (properties != null) {
             return properties.getProperty(propertyName);
         }
         return null;
     }
+
 
 }
 
