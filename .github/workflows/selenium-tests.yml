@@ -26,9 +26,12 @@ jobs:
 
       - name: Set up Chrome and ChromeDriver
         run: |
-          # Update package list but prevent failure on updates
+          # Update package list but ignore exit code 8 if updates are available
           sudo apt update || true
-
+          
+          # Upgrade essential packages only (optional, avoids conflicts)
+          sudo apt upgrade -y || true
+          
           # Check if Chrome is installed, install only if missing
           if ! command -v google-chrome &> /dev/null; then
             sudo apt install -y google-chrome-stable || true
