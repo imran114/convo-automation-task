@@ -24,11 +24,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Chrome and ChromeDriver
+           - name: Set up Chrome and ChromeDriver
         run: |
           sudo apt update
-          sudo apt install -y wget unzip google-chrome-stable
-
+          
+          # Check if Chrome is installed, if not install it
+          if ! command -v google-chrome &> /dev/null; then
+            sudo apt install -y google-chrome-stable
+          fi
+          
           # Get installed Chrome version
           CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
 
@@ -45,7 +49,7 @@ jobs:
           # Verify installation
           google-chrome --version
           chromedriver --version
-
+          
       - name: Display System Information
         run: |
           echo "System Information:"
