@@ -27,14 +27,9 @@ jobs:
       - name: Set up Chrome and ChromeDriver
         run: |
           sudo apt update
-          sudo apt install -y wget unzip
-          
-          # Install Google Chrome
-          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
-          google-chrome --version
+          sudo apt install -y wget unzip google-chrome-stable
 
-          # Extract the installed Chrome version
+          # Get installed Chrome version
           CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
 
           # Get the latest matching ChromeDriver version
@@ -48,6 +43,7 @@ jobs:
           sudo chmod +x /usr/bin/chromedriver
 
           # Verify installation
+          google-chrome --version
           chromedriver --version
 
       - name: Display System Information
