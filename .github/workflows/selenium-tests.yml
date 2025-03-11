@@ -37,7 +37,8 @@ jobs:
         run: mvn clean install -DskipTests=true
 
       - name: Run Selenium TestNG Tests
-        run: mvn clean test -DsuiteXmlFile=./testng.xml
+        run: mvn clean test -Dsurefire.suiteXmlFiles=./testng.xml
+
 
 
       - name: Upload Test Reports
