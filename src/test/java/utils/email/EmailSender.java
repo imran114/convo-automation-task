@@ -10,6 +10,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,22 +45,21 @@ public class EmailSender {
         properties.put("mail.smtp.auth", "true");
         System.out.println("Properties set.");
 
-//        String email = fileReader.getRecipientEmail();
-//        String pass = fileReader.getRecipientEmailPassword();
+        String email = fileReader.getRecipientEmail();
+        String pass = fileReader.getRecipientEmailPassword();
 
-        // Get the Session object and pass useCaseName and password
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("email", "pass");
+                return new PasswordAuthentication(email, pass);
             }
         });
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("email"));
-
+            message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
             System.out.println("Recipient added.");
+
             Address[] ccAddresses = new Address[cc.length];
             for (int i = 0; i < cc.length; i++) {
                 ccAddresses[i] = new InternetAddress(cc[i]);
@@ -69,7 +69,6 @@ public class EmailSender {
             message.setSubject(subject);
             System.out.println("Subject added.");
 
-            // Create the multipart message
             Multipart multipart = new MimeMultipart();
             MimeBodyPart attachmentPart = new MimeBodyPart();
             MimeBodyPart textPart = new MimeBodyPart();
@@ -77,18 +76,23 @@ public class EmailSender {
             System.out.println("Message body added.");
             String filePath = "src/test/resources/test_data_files/email_body.README";
             String fileContent = new String(Files.readAllBytes(Paths.get(filePath)));
+            String currentDate = new SimpleDateFormat("yyMMdd").format(new Date()).toLowerCase();
 
-            File file = new File(getReportName());
+            String absoluteReportPath = System.getProperty("user.dir") + "/src/test/resources/reports/convo_task_" + currentDate + "_report.html";
+            File file = new File(absoluteReportPath);
+
+            if (!file.exists()) {
+                throw new FileNotFoundException("Report file not found: " + absoluteReportPath);
+            }
+
             attachmentPart.attachFile(file);
             textPart.setText(fileContent);
             multipart.addBodyPart(textPart);
             multipart.addBodyPart(attachmentPart);
             System.out.println("Report attached.");
 
-            // Set the content of the message to the multipart
             message.setContent(multipart);
 
-            // Send the message
             Transport.send(message);
             System.out.println("Email sent successfully.");
             logger.info("Email sent successfully.");
@@ -100,7 +104,7 @@ public class EmailSender {
     private String getReportName(){
         String currentDate = new SimpleDateFormat("yyMMdd").format(new Date());
         // Construct dynamic report name according to the current date
-        String reportFileName = "convo_automation_report" + currentDate + "-report.html";
+        String reportFileName = "convo_automation_report" + currentDate + "-.html";
         return  "src/test/resources/reports/" + reportFileName;
     }
 

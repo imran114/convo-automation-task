@@ -19,9 +19,9 @@ public class SuiteListener implements ISuiteListener {
         EmailSender emailSender = new EmailSender();
         System.out.println("email is started.");
         String subject = "Convo Automation Report";
-        String recipient = "iullah.mscs24seecs@seecs.edu.pk";
+        String recipient = "adnan.hadaf8@gmail.com";
         System.out.println("email sent successfully.");
-//        emailSender.sendEmail(recipient, subject);
+        emailSender.sendEmail(recipient, subject);
         clearFolderAndMergeReport.mergeReport();
         clearFolderAndMergeReport.clearFolder();
     }

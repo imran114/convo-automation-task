@@ -1,571 +1,8 @@
 [
   {
     "useNaturalConf": true,
-    "startTime": "Mar 11, 2025, 10:42:42 AM",
-    "endTime": "Mar 11, 2025, 10:42:43 AM",
-    "status": "PASS",
-    "level": 0,
-    "isLeaf": false,
-    "name": "File Upload Test",
-    "description": "Test cases of File Upload Test",
-    "infoMap": {},
-    "children": [
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:42 AM",
-        "endTime": "Mar 11, 2025, 10:42:42 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "User should be able to upload file in the file upload field",
-        "infoMap": {},
-        "children": [],
-        "logs": [],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "FileUploadTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:42 AM",
-        "endTime": "Mar 11, 2025, 10:42:43 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Upload a file",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:42:42 AM",
-            "status": "INFO",
-            "details": "Verify if file is uploaded",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:42:43 AM",
-            "status": "PASS",
-            "details": "Pass: File uploaded successfully",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "FileUploadTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:43 AM",
-        "endTime": "Mar 11, 2025, 10:42:43 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "verify file name after uploading",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:42:43 AM",
-            "status": "INFO",
-            "details": "Verify if file name is displayed after uploading",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:42:43 AM",
-            "status": "PASS",
-            "details": "Pass: File name is displayed after uploading",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "FileUploadTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      }
-    ],
-    "logs": [],
-    "media": [],
-    "exceptions": [],
-    "authorSet": [],
-    "categorySet": [
-      {
-        "name": "FileUploadTest"
-      }
-    ],
-    "deviceSet": [
-      {
-        "name": "Windows11"
-      }
-    ],
-    "generatedLog": []
-  },
-  {
-    "useNaturalConf": true,
-    "startTime": "Mar 11, 2025, 10:42:53 AM",
-    "endTime": "Mar 11, 2025, 10:43:23 AM",
-    "status": "FAIL",
-    "level": 0,
-    "isLeaf": false,
-    "name": "Login Test",
-    "description": "Test cases of Login Test",
-    "infoMap": {},
-    "children": [
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:53 AM",
-        "endTime": "Mar 11, 2025, 10:42:53 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "User should be able to enter login credentials and verify login functionality",
-        "infoMap": {},
-        "children": [],
-        "logs": [],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:53 AM",
-        "endTime": "Mar 11, 2025, 10:42:56 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Attempt login with invalid username",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:42:56 AM",
-            "status": "INFO",
-            "details": "Checking if error message is displayed for invalid username",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:42:56 AM",
-            "status": "PASS",
-            "details": "Pass: Username validation message is displayed",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:56 AM",
-        "endTime": "Mar 11, 2025, 10:42:57 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Attempt login with invalid password",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:42:57 AM",
-            "status": "INFO",
-            "details": "Checking if error message is displayed",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:42:57 AM",
-            "status": "PASS",
-            "details": "Pass: Password validation message is displayed",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:57 AM",
-        "endTime": "Mar 11, 2025, 10:42:59 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Attempt login with empty username",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:42:59 AM",
-            "status": "INFO",
-            "details": "Checking if error message is displayed for empty username",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:42:59 AM",
-            "status": "PASS",
-            "details": "Pass: Username validation message is displayed",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:42:59 AM",
-        "endTime": "Mar 11, 2025, 10:43:01 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Attempt login with empty password",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:01 AM",
-            "status": "INFO",
-            "details": "Checking if error message is displayed",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:01 AM",
-            "status": "PASS",
-            "details": "Pass: Password validation message is displayed",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:01 AM",
-        "endTime": "Mar 11, 2025, 10:43:02 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Enter username in the username field",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:02 AM",
-            "status": "INFO",
-            "details": "Verify if username is entered",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:02 AM",
-            "status": "PASS",
-            "details": "Pass, user is able to enter the text tomsmith in the Username",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:02 AM",
-        "endTime": "Mar 11, 2025, 10:43:02 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Enter password in the password field",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:02 AM",
-            "status": "INFO",
-            "details": "Verify if password is entered successfully",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:02 AM",
-            "status": "PASS",
-            "details": "Pass, user is able to enter the text SuperSecretPassword! in the Password",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:02 AM",
-        "endTime": "Mar 11, 2025, 10:43:03 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Click Login Button",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:03 AM",
-            "status": "INFO",
-            "details": "Verify if Login Button is clicked",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:03 AM",
-            "status": "PASS",
-            "details": "Pass, user is able to click on the Login",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:03 AM",
-        "endTime": "Mar 11, 2025, 10:43:03 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Verify successful login by checking Logout button",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:03 AM",
-            "status": "INFO",
-            "details": "Checking if logout button is present",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:03 AM",
-            "status": "PASS",
-            "details": "Pass: Logout button displayed and login is successful",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:03 AM",
-        "endTime": "Mar 11, 2025, 10:43:23 AM",
-        "status": "FAIL",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Taking screenshot of the page for the assessment purpose",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:23 AM",
-            "status": "INFO",
-            "details": "Taking screenshot of the page",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:23 AM",
-            "status": "FAIL",
-            "details": "Fail: Screenshot is not taken",
-            "seq": 1,
-            "infoMap": {},
-            "media": {
-              "base64": "data:image/png;base64,Screenshot file not found at: D:\\Automation Task\\Selenium-Java-Web-Automation-Framework/src/main/resources/screenShots/screenShot.png",
-              "type": "SCREENCAPTURE"
-            }
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "LoginTest"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      }
-    ],
-    "logs": [],
-    "media": [],
-    "exceptions": [],
-    "authorSet": [],
-    "categorySet": [
-      {
-        "name": "LoginTest"
-      }
-    ],
-    "deviceSet": [
-      {
-        "name": "Windows11"
-      }
-    ],
-    "generatedLog": []
-  },
-  {
-    "useNaturalConf": true,
-    "startTime": "Mar 11, 2025, 10:43:33 AM",
-    "endTime": "Mar 11, 2025, 10:43:34 AM",
+    "startTime": "Mar 11, 2025, 10:21:02 PM",
+    "endTime": "Mar 11, 2025, 10:21:05 PM",
     "status": "PASS",
     "level": 0,
     "isLeaf": false,
@@ -575,8 +12,8 @@
     "children": [
       {
         "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:33 AM",
-        "endTime": "Mar 11, 2025, 10:43:33 AM",
+        "startTime": "Mar 11, 2025, 10:21:02 PM",
+        "endTime": "Mar 11, 2025, 10:21:02 PM",
         "status": "PASS",
         "level": 1,
         "isLeaf": true,
@@ -601,8 +38,8 @@
       },
       {
         "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:33 AM",
-        "endTime": "Mar 11, 2025, 10:43:34 AM",
+        "startTime": "Mar 11, 2025, 10:21:02 PM",
+        "endTime": "Mar 11, 2025, 10:21:03 PM",
         "status": "PASS",
         "level": 1,
         "isLeaf": true,
@@ -611,14 +48,14 @@
         "children": [],
         "logs": [
           {
-            "timestamp": "Mar 11, 2025, 10:43:34 AM",
+            "timestamp": "Mar 11, 2025, 10:21:03 PM",
             "status": "INFO",
             "details": "I am printing company names from table one",
             "seq": 0,
             "infoMap": {}
           },
           {
-            "timestamp": "Mar 11, 2025, 10:43:34 AM",
+            "timestamp": "Mar 11, 2025, 10:21:03 PM",
             "status": "PASS",
             "details": "Pass: Company Names Extracted and printed successfully!",
             "seq": 1,
@@ -642,8 +79,8 @@
       },
       {
         "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:34 AM",
-        "endTime": "Mar 11, 2025, 10:43:34 AM",
+        "startTime": "Mar 11, 2025, 10:21:03 PM",
+        "endTime": "Mar 11, 2025, 10:21:03 PM",
         "status": "PASS",
         "level": 1,
         "isLeaf": true,
@@ -652,16 +89,98 @@
         "children": [],
         "logs": [
           {
-            "timestamp": "Mar 11, 2025, 10:43:34 AM",
+            "timestamp": "Mar 11, 2025, 10:21:03 PM",
             "status": "INFO",
             "details": "I am printing company names from table two",
             "seq": 0,
             "infoMap": {}
           },
           {
-            "timestamp": "Mar 11, 2025, 10:43:34 AM",
+            "timestamp": "Mar 11, 2025, 10:21:03 PM",
             "status": "PASS",
             "details": "Pass: Company Names Extracted and printed successfully!",
+            "seq": 1,
+            "infoMap": {}
+          }
+        ],
+        "media": [],
+        "exceptions": [],
+        "authorSet": [],
+        "categorySet": [
+          {
+            "name": "DynamicTableHandlingTest"
+          }
+        ],
+        "deviceSet": [
+          {
+            "name": "Windows11"
+          }
+        ],
+        "generatedLog": []
+      },
+      {
+        "useNaturalConf": true,
+        "startTime": "Mar 11, 2025, 10:21:03 PM",
+        "endTime": "Mar 11, 2025, 10:21:04 PM",
+        "status": "PASS",
+        "level": 1,
+        "isLeaf": true,
+        "name": "Verifying if \u0027Jason Doe\u0027 exists in table one",
+        "infoMap": {},
+        "children": [],
+        "logs": [
+          {
+            "timestamp": "Mar 11, 2025, 10:21:03 PM",
+            "status": "INFO",
+            "details": "Checking if \u0027Jason Doe\u0027 is present in table one.",
+            "seq": 0,
+            "infoMap": {}
+          },
+          {
+            "timestamp": "Mar 11, 2025, 10:21:04 PM",
+            "status": "PASS",
+            "details": "Pass: Company Name found in the table!",
+            "seq": 1,
+            "infoMap": {}
+          }
+        ],
+        "media": [],
+        "exceptions": [],
+        "authorSet": [],
+        "categorySet": [
+          {
+            "name": "DynamicTableHandlingTest"
+          }
+        ],
+        "deviceSet": [
+          {
+            "name": "Windows11"
+          }
+        ],
+        "generatedLog": []
+      },
+      {
+        "useNaturalConf": true,
+        "startTime": "Mar 11, 2025, 10:21:04 PM",
+        "endTime": "Mar 11, 2025, 10:21:05 PM",
+        "status": "PASS",
+        "level": 1,
+        "isLeaf": true,
+        "name": "Verifying if \u0027Jason Doe\u0027 exists in table two",
+        "infoMap": {},
+        "children": [],
+        "logs": [
+          {
+            "timestamp": "Mar 11, 2025, 10:21:04 PM",
+            "status": "INFO",
+            "details": "Checking if \u0027Jason Doe\u0027 is present in table two.",
+            "seq": 0,
+            "infoMap": {}
+          },
+          {
+            "timestamp": "Mar 11, 2025, 10:21:05 PM",
+            "status": "PASS",
+            "details": "Pass: Company Name found in the table!",
             "seq": 1,
             "infoMap": {}
           }
@@ -689,265 +208,6 @@
     "categorySet": [
       {
         "name": "DynamicTableHandlingTest"
-      }
-    ],
-    "deviceSet": [
-      {
-        "name": "Windows11"
-      }
-    ],
-    "generatedLog": []
-  },
-  {
-    "useNaturalConf": true,
-    "startTime": "Mar 11, 2025, 10:43:44 AM",
-    "endTime": "Mar 11, 2025, 10:43:46 AM",
-    "status": "PASS",
-    "level": 0,
-    "isLeaf": false,
-    "name": "JavaScript Alert Handling",
-    "description": "Test cases of JavaScript Alert Handling",
-    "infoMap": {},
-    "children": [
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:44 AM",
-        "endTime": "Mar 11, 2025, 10:43:44 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Javascript Alerts Handling Tests",
-        "infoMap": {},
-        "children": [],
-        "logs": [],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:44 AM",
-        "endTime": "Mar 11, 2025, 10:43:45 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Handle JS Alert",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:44 AM",
-            "status": "INFO",
-            "details": "Getting alert text",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "I am a JS Alert",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:45 AM",
-        "endTime": "Mar 11, 2025, 10:43:45 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Handle JS Confirm - Accept",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "Getting alert text",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "I am a JS Confirm",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:45 AM",
-        "endTime": "Mar 11, 2025, 10:43:45 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Handle JS Confirm - Dismiss",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "Getting alert text",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "I am a JS Confirm",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:45 AM",
-        "endTime": "Mar 11, 2025, 10:43:45 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Handle JS Prompt - Accept with Input",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "Getting alert text",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "I am a JS prompt",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      },
-      {
-        "useNaturalConf": true,
-        "startTime": "Mar 11, 2025, 10:43:45 AM",
-        "endTime": "Mar 11, 2025, 10:43:46 AM",
-        "status": "PASS",
-        "level": 1,
-        "isLeaf": true,
-        "name": "Handle JS Prompt - Dismiss",
-        "infoMap": {},
-        "children": [],
-        "logs": [
-          {
-            "timestamp": "Mar 11, 2025, 10:43:45 AM",
-            "status": "INFO",
-            "details": "Getting alert text",
-            "seq": 0,
-            "infoMap": {}
-          },
-          {
-            "timestamp": "Mar 11, 2025, 10:43:46 AM",
-            "status": "INFO",
-            "details": "I am a JS prompt",
-            "seq": 1,
-            "infoMap": {}
-          }
-        ],
-        "media": [],
-        "exceptions": [],
-        "authorSet": [],
-        "categorySet": [
-          {
-            "name": "JavaScriptAlertHandling"
-          }
-        ],
-        "deviceSet": [
-          {
-            "name": "Windows11"
-          }
-        ],
-        "generatedLog": []
-      }
-    ],
-    "logs": [],
-    "media": [],
-    "exceptions": [],
-    "authorSet": [],
-    "categorySet": [
-      {
-        "name": "JavaScriptAlertHandling"
       }
     ],
     "deviceSet": [

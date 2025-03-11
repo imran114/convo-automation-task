@@ -157,7 +157,7 @@ public class ExtentReport {
         String currentDate = new SimpleDateFormat("yyMMdd").format(new Date()).toLowerCase();
 
         // Construct dynamic report name
-        String reportFileName = "convo_task-" + currentDate + "-report.html";
+        String reportFileName = "convo_task_" + currentDate + "_report.html";
         String reportFilePath = "src/test/resources/reports/" + reportFileName;
 
         // Merge JSON reports

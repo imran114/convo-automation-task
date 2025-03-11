@@ -22,7 +22,13 @@ public class PropertiesFileReader {
         return userDir + path;
     }
 
+    public String getRecipientEmail() {
+        return getProperty(emailProperties, "userEmail");
+    }
 
+    public String getRecipientEmailPassword() {
+        return getProperty(emailProperties, "passwordEmail");
+    }
 
 
     public String getPort() {

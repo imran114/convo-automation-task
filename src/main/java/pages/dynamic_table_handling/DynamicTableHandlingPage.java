@@ -14,31 +14,42 @@ public class DynamicTableHandlingPage extends SeleniumUtils {
         super(driver);
     }
 
-
-    public String extractAndValidateCompanyNames(TableType tableType) {
+    //  method to extract company names as a list
+    private List<String> getCompanyNames(TableType tableType) {
         By tableRowsLocator = tableType.getLocator();
         List<WebElement> rows = returnWebElementsList(tableRowsLocator);
         List<String> companyNames = new ArrayList<>();
 
         for (WebElement row : rows) {
-            // Locate Last Name (1st column) and First Name (2nd column)
             WebElement lastNameElement = row.findElement(By.xpath("./td[1]"));
             WebElement firstNameElement = row.findElement(By.xpath("./td[2]"));
 
-            // Combine First & Last Name
-            String fullName = firstNameElement.getText() + " " + lastNameElement.getText();
+            String fullName = firstNameElement.getText().trim() + " " + lastNameElement.getText().trim();
             companyNames.add(fullName);
         }
+
+        return companyNames;
+    }
+
+
+    public String extractAndValidateCompanyNames(TableType tableType) {
+        List<String> companyNames = getCompanyNames(tableType);
 
         if (companyNames.isEmpty()) {
             return "Fail: No company names found in the table!";
         } else {
-            // print company names
-            for (String name : companyNames) {
-                System.out.println(name);
-            }
+            // Print names for debugging
+            companyNames.forEach(System.out::println);
             return "Pass: Company Names Extracted and printed successfully!";
         }
     }
 
+    public String isCompanyPresent(TableType tableType, String companyName) {
+        List<String> companyNames = getCompanyNames(tableType); // Using common method
+
+        boolean found = companyNames.stream()
+                .anyMatch(name -> name.trim().equalsIgnoreCase(companyName.trim()));
+
+        return found ? "Pass: Company Name found in the table!" : "Fail: Company Name not found in the table!";
+    }
 }

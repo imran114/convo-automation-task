@@ -36,4 +36,25 @@ public class DynamicTableHandlingTest extends PageObjects {
         TestValidator.validateTest(actualResult);
     }
 
+
+    @Test(priority = 3)
+    public void verifyCompanyPresenceInTableOne() {
+        extentReport.logChildTestNameAndDescription(useCaseName, "Verifying if 'Jason Doe' exists in table one");
+        extentReport.testInfo("Checking if 'Jason Doe' is present in table one.");
+        actualResult = dynamicTableHandlingPage.isCompanyPresent(TableType.TABLE_ONE, "Jason Doe");
+        extentReport.logStepResult(actualResult);
+        TestValidator.validateTest(actualResult);
+
+    }
+
+    @Test(priority = 4)
+    public void verifyCompanyPresenceInTableTwo() {
+        extentReport.logChildTestNameAndDescription(useCaseName, "Verifying if 'Jason Doe' exists in table two");
+        extentReport.testInfo("Checking if 'Jason Doe' is present in table two.");
+        actualResult = dynamicTableHandlingPage.isCompanyPresent(TableType.TABLE_TWO, "Jason Doe");
+        extentReport.logStepResult(actualResult);
+        TestValidator.validateTest(actualResult);
+
+    }
+
 }

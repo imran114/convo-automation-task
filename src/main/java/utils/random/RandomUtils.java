@@ -12,14 +12,4 @@ public class RandomUtils extends SeleniumUtils {
         super(driver);
     }
 
-    public static WebElement returnRandomWebElementFromList(List<WebElement> webElementList) {
-        Random random;
-        if (webElementList.size() < 0) {
-            throw new IllegalArgumentException("WebElement List if empty or null");
-        } else {
-            random = new Random();
-            int getIndex = random.nextInt(webElementList.size());
-            return webElementList.get(getIndex);
-        }
-    }
 }
