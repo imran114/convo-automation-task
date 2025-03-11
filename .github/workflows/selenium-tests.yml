@@ -24,23 +24,30 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Chrome and ChromeDriver
+            - name: Set up Chrome and ChromeDriver
         run: |
           sudo apt update
           sudo apt install -y wget unzip
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt install -f
+          
+          # Install Google Chrome
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
           google-chrome --version
-          
-          # Fetch the latest ChromeDriver version matching the installed Chrome
+
+          # Extract the installed Chrome version
           CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f1)
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-          
-          wget -N https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-          unzip -o chromedriver_linux64.zip
-          sudo mv chromedriver /usr/bin/chromedriver
+
+          # Get the latest matching ChromeDriver version
+          CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build-with-downloads.json" \
+            | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.[$CHROME_VERSION].downloads.chromedriver[0].version')
+
+          # Download and install ChromeDriver
+          wget -q "https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
+          unzip -o chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
+
+          # Verify installation
           chromedriver --version
 
       - name: Display System Information
