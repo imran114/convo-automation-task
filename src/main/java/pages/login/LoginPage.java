@@ -1,21 +1,31 @@
 package pages.login;
 
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.common_components.button_actions.ButtonActions;
 import utils.common_components.edit_text_fields.EditText;
 import utils.selenium_utils.SeleniumUtils;
 
-import static pages.login.LoginLocators.*;
 
 public class LoginPage extends SeleniumUtils {
 
+    /*
+     * Helper classes for entering text and clicking buttons
+     * */
 
     private final EditText editText;
     private final ButtonActions buttonActions;
-//    private final By userNameTextFieldLocator = By.xpath("//input[@id='username']");
-//    private final By passwordFieldLocator = By.xpath("//input[@id='password-text-field']");
-//    private final By signInButtonLocator = By.xpath("//button[@id='signin Button']");
+    /*
+     * Locator for the elements on the login page
+     * */
+    public static final By userNameTextFieldLocator = By.xpath("//input[@id='username']");
+    public static final By passwordFieldLocator = By.xpath("//input[@id='password']");
+    public static final By loginButtonLocator = By.xpath("//button[@type='submit']");
+    public static final By userNameValidationMsgLocator = By.xpath("//div[@id='flash' and contains(text(),'invalid')]");
+    public static final By passwordValidationMsgLocator = By.xpath("//div[@id='flash' and contains(text(),'Your password is invalid')]");
+    public static final By logoutButtonLocator = By.xpath("//a[contains(@href,'logout')]");
+    public static final By invalidXpathLocator = By.xpath("//a[@id='abc']");
 
 
     public LoginPage(WebDriver driver) {
@@ -43,9 +53,14 @@ public class LoginPage extends SeleniumUtils {
     public String verifyScreenshotIsTaken() {
         /*
          * I am intentionally using an invalid xpath locator to take the screenshot
-         * like if we expect something and it is not there, we then take a screenshot
+         * like if we expect some scenario and it is not fulfilled, then screenshot is taken
          * */
-        return isDisplayed(invalidXpathLocator) ? "Pass: Screenshot is taken" : "Fail: Screenshot is not taken";
+        if (isDisplayed(invalidXpathLocator)) {
+            return "Pass: invalid locator displayed";
+        } else {
+            getFailedElementScreenShot();
+            return "Fail: invalid locator not displayed, screenshot is taken";
+        }
     }
 
     public String enterPassword(String password) {

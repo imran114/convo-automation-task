@@ -102,7 +102,6 @@ public class ExtentReport {
 
     public void testFail(String failInfo) {
         try {
-            captureScreenshot(screenshotPath);
             String base64Image = convertImageToBase64(screenshotPath);
             extentTest.fail(failInfo, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
             if (isFilePresent(screenshotPath)) deleteScreenshot();

@@ -15,7 +15,9 @@ Ensure you have the following installed:
   ```
   📂 src/test/resources/reports/convo_task-250311-report.html
   ```
-  
+- **the report name format I've used is** 
+    `convo-task-<todays_date>-report.html` 
+
   ## **Parallel Execution**
 1. Navigate to `testng.xml` file.
 2. Change the `parallel` attribute in the `<suite>` tag to `tests`. like this:
@@ -30,10 +32,12 @@ Ensure you have the following installed:
     - Now the grid is ready to run the tests.
 **But I have handled this programmatically** like grid will start automatically when we set `runOnGrid` to `true` in the `testng.xml` file.
 6. Tests can be executed on different browsers, either in parallel or sequentially, by setting the browser attribute in the test tags of the `testng.xml` file
+7. Parallel execution significantly reduces the execution time of the tests.
 
 ## **Emailing Automation Report**
 1. To send the test report via email, navigate to `src/test/resources/test_data_files/email_configuration.properties`.
 2. Update the email configuration properties with your email credentials (this will be the email which will be used to send the report).
 3. Then navigate to `src/test/java/utils/email/EmailSender.java` and provide the `cc` email addresses here in this line ` private final String[] cc = {"email1","email2"};`
 4. Navigate to SuiteListeners.java file `src/test/java/utils/listener/SuiteListener.java` and provide the recipient email addresses here in this line `String recipient = "recipient email";
-5. After the test execution, the test report will be sent automatically to the email addresses provided.
+5. Now, in the SuiteListeners.java file, uncomment the `sendEmail()` method.
+6. After the test execution, the test report will be sent automatically to the email addresses provided.

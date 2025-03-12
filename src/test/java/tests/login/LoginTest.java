@@ -7,7 +7,6 @@ import test_base.PageObjects;
 import utils.test_validator.TestValidator;
 
 
-
 public class LoginTest extends PageObjects {
 
     private LoginPage loginPage;
@@ -34,6 +33,7 @@ public class LoginTest extends PageObjects {
         extentReport.logStepResult(actualResult);
         TestValidator.validateTest(actualResult);
     }
+
     @Test(priority = 2)
     public void invalidPasswordLogin() {
         extentReport.logChildTestNameAndDescription(useCaseName, "Attempt login with invalid password");
@@ -106,14 +106,14 @@ public class LoginTest extends PageObjects {
         TestValidator.validateTest(actualResult);
     }
 
-//    @Test(priority = 9)
-//    public void screenshotTest() {
-//        extentReport.logChildTestNameAndDescription(useCaseName, "Taking screenshot of the page for the assessment purpose");
-//        actualResult = loginPage.verifyScreenshotIsTaken();
-//        extentReport.testInfo("Taking screenshot of the page");
-//        extentReport.logStepResult(actualResult);
-//        TestValidator.validateTest(actualResult);
-//    }
+    @Test(priority = 9)
+    public void screenshotTest() {
+        extentReport.logChildTestNameAndDescription(useCaseName, "Taking screenshot of the page for the assessment purpose");
+        actualResult = loginPage.verifyScreenshotIsTaken();
+        extentReport.testInfo("Taking screenshot of the page");
+        extentReport.logStepResult(actualResult);
+        TestValidator.validateTest(actualResult);
+    }
 
 
 }

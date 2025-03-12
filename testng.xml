@@ -7,15 +7,15 @@
     <listeners>
         <listener class-name="utils.listener.SuiteListener"/>
     </listeners>
-<!--    <test name="LOGIN_AUTOMATION">
+    <test name="LOGIN_AUTOMATION">
         <parameter name="taskType" value="login_automation"/>
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="utils.test_merge.ClearFolder"/>
             <class name="tests.login.LoginTest"/>
         </classes>
-    </test>-->
-<!--    <test name="Dynamic_Table_Handling">
+    </test>
+    <test name="Dynamic_Table_Handling">
         <parameter name="taskType" value="dynamic_table_handling"/>
         <parameter name="browser" value="edge"/>
         <classes>
@@ -28,7 +28,7 @@
         <classes>
             <class name="tests.javascript_alerts.JavaScriptAlertsTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="File_Upload">
         <parameter name="taskType" value="file_upload"/>
         <parameter name="browser" value="chrome"/>
