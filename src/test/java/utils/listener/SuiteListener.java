@@ -21,7 +21,7 @@ public class SuiteListener implements ISuiteListener {
         String subject = "Convo Automation Report";
         String recipient = "email";
         System.out.println("email sent successfully.");
-        emailSender.sendEmail(recipient, subject);
+//        emailSender.sendEmail(recipient, subject);
         clearFolderAndMergeReport.mergeReport();
         clearFolderAndMergeReport.clearFolder();
     }
